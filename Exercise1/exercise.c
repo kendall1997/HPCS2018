@@ -1,7 +1,8 @@
 #include <mpi.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-int main(int argc, char const *argv[]){
+int main(int argc, char *argv[]){
   //Initial set up
   int rank,size,length;
   char name[25];
@@ -19,17 +20,8 @@ int main(int argc, char const *argv[]){
   int counter = 0;
 
   while (counter <= 1000) {
-    // Receive Data
-    // int MPI_Recv(void *buf, int count, MPI_Datatype datatype,int source, int tag, MPI_Comm comm, MPI_Status *status)
-    if (rank == 0) {
-      MPI_Recv(&counter, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-      counter += 1;
-    }
 
-    else if( rank == 1) {
-      MPI_Recv(&counter, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    }
-
+    //send
 
     if (rank == 0) {
       MPI_Send(&counter, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
@@ -41,6 +33,17 @@ int main(int argc, char const *argv[]){
 
     else {
       //This should not happend!
+    }
+
+    // Receive Data
+    // int MPI_Recv(void *buf, int count, MPI_Datatype datatype,int source, int tag, MPI_Comm comm, MPI_Status *status)
+    if (rank == 0) {
+      MPI_Recv(&counter, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      counter += 1;
+    }
+
+    else if( rank == 1) {
+      MPI_Recv(&counter, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     }
 
     printf("Counter : %d, rank: %d\n", counter,rank);
