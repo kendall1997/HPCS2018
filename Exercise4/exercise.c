@@ -25,6 +25,7 @@ int main(int argc, char *argv[]){
     MPI_Bcast(&data[index], 1 , MPI_INT, index, MPI_COMM_WORLD);
   }
   //Out
+  
   printf("Numbers: [%d,%d,%d], Sum: %d, From Rank: %d on [%s]\n",data[0], data[1], data[2],data[0] + data[1] + data[2], rank,name);
 
   MPI_Finalize();
