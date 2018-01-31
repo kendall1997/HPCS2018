@@ -9,7 +9,7 @@ double integrate(double, double, double);
 
 int from = 0;
 int to = 1;
-int split = 100000;
+int split = 100000000;
 int root = 0;
 
 int main(int argc, char *argv[]){
