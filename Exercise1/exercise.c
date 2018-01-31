@@ -21,7 +21,7 @@ int main(int argc, char const *argv[]){
 
     if (rank == 0) {
       MPI_Recv(&counter, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-      counter += 1
+      counter += 1;
     }
 
     else if( rank == 1) {
