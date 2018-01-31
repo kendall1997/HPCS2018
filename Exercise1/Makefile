@@ -2,7 +2,7 @@ FLAGS=
 
 all: compile
 
-compile: hello.c
+compile:
 	mpicc $(FLAGS) exercise.c -o exercise
 
 clean:
