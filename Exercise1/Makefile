@@ -13,3 +13,6 @@ execute:
 
 watch:
 	watch -n 5 qstat -a
+
+run:
+	mpiexec -np 2 ./exercise
