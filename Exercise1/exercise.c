@@ -47,10 +47,13 @@ int main(int argc, char *argv[]){
     }
 
     printf("Counter : %d, rank: %d\n", counter,rank);
+
+    if(counter == 1000){
+      break;
+    }
   }
 
   MPI_Finalize();
-
 
 
   return 0;
