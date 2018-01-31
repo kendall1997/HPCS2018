@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
     for (i = 0; i < size; ++i){
       pi += data[i];
     }
-    printf("Value of pi : %f\n", pi);
+    printf("Value of pi : %.16lf\n", pi);
   }
 
   MPI_Finalize();
