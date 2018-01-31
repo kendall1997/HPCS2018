@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
       MPI_Send(&counter, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
     }
 
-    else if( rank == 1) {
+    else if( rank == 1 && counter != 1000) {
       MPI_Send(&counter, 1, MPI_INT, 0, 0, MPI_COMM_WORLD); 
     }
 
