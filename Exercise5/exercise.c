@@ -9,7 +9,7 @@ double integrate(double, double, double);
 
 int from = 0;
 int to = 1;
-int split = 5;
+int split = 100000;
 int root = 0;
 
 int main(int argc, char *argv[]){
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
   double x_0 = from + rank*block;
   double x_f = from + rank*block + block;
   printf("Integrating block [%f,%f] to rank %d\n", x_0, x_f, rank);
-  data[rank] = integrate(x_0,x_f,1/split);
+  data[rank] = integrate(x_0,x_f,block/split);
   printf("Integrating block [%f,%f] to rank %d [Ready]\n", x_0, x_f, rank);
   
   //Broadcast
@@ -38,8 +38,6 @@ int main(int argc, char *argv[]){
   for( index = 0; index < size; ++index ){
     MPI_Bcast(&data[index], 1 , MPI_DOUBLE, index, MPI_COMM_WORLD);
   }
-
-  printf("Starting Sum [Ready]\n");
   //Out
   if(rank == root){
     int i;
@@ -58,9 +56,11 @@ int main(int argc, char *argv[]){
 double integrate(double from, double to, double step){
   double sum = 0;
   double index;
+  int times = 0;
   for(index = from; index <= to; index+=step){
     double tmp = evaluate(index) * step;
     sum+=tmp;
+    times+=1;
   }
   return sum;
 }
