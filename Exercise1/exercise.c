@@ -12,20 +12,22 @@ int main(int argc, char const *argv[]){
   MPI_Comm_size(MPI_COMM_WORLD, &size);
   MPI_Get_processor_name(name, &length);
 
+  printf("rank: %d, size %d\n",rank,size);
+
   //logic
 
   int counter = 0;
 
   while (counter <= 1000) {
     // Receive Data
-
+    // int MPI_Recv(void *buf, int count, MPI_Datatype datatype,int source, int tag, MPI_Comm comm, MPI_Status *status)
     if (rank == 0) {
       MPI_Recv(&counter, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       counter += 1;
     }
 
     else if( rank == 1) {
-      MPI_Recv(&counter, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      MPI_Recv(&counter, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     }
 
 
@@ -43,6 +45,8 @@ int main(int argc, char const *argv[]){
 
     printf("Counter : %d, rank: %d\n", counter,rank);
   }
+
+  MPI_Finalize();
 
 
 
